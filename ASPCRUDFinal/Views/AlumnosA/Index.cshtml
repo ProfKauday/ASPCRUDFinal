@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ASPCRUDFinal.Models.AlumnosA>
+
+@{
+
+
+    ViewBag.Title = "Lista de Alumnos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <hr>
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Agregar")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+
+                    @if (item.Sexo == "M")
+                    //Aca le digo que me muestre Femenino o Mascuino on la letra que elije
+                    {
+                        <span>Masculino</span>
+                    }
+                    else
+                    {
+                        <span>Femenino</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id }) |
+                    @Html.ActionLink("Detalles", "Detalles", new { id = item.id }) |
+
+                    @Html.ActionLink("Eliminar", "Eliminar", new { id = item.id }, new { @class = "aElimina" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</body>
+</html>
+@*En este script se pregunta s quiere eliminar. esta incluido desde el Layout y usa la clase declara arriba aElimina*@
+@section scripts {
+    <script>
+        $(".aElimina").click(function (event) {
+            if (!confirm('Esta seguro de eliminar?')) {
+                event.preventDefault();
+            }
+        });
+    </script>
+    }
